@@ -94,11 +94,11 @@ const playGame = () => {
 
     if (amountOfGames === 10) { // Letting know who won after 10 games.
         if (humanScore > computerScore) {
-            console.log('Congratz – you are the overall winner!');
+            alert('Congratz – you are the overall winner! Games played: ${amountOfGames}. Human score: ${humanScore}, computer score: ${computerScore}.');
         } else if (humanScore < computerScore) {
-            console.log(`You lost to the cpu. Better luck next time.`)
+            alert(`You lost to the cpu. Better luck next time. Games played: ${amountOfGames}. Human score: ${humanScore}, computer score: ${computerScore}.`)
         } else {
-            console.log(`It's a tie, better luck next time.`)
+            alert(`It's a tie, better luck next time. Games played: ${amountOfGames}. Human score: ${humanScore}, computer score: ${computerScore}.`)
         }
     }
 }
