@@ -42,6 +42,7 @@ const getHumanChoice = () => {
 const playGame = () => {
     let humanScore = 0;
     let computerScore = 0;
+    let amountOfGames = 0;
 
     const playRound = () => {
         let humanChoice = getHumanChoice();
@@ -52,37 +53,54 @@ const playGame = () => {
         if(humanChoice === 'rock' && computerChoice === 'paper') {
             console.log(`You lose! Paper beats rock!`);
             computerScore ++;
+            amountOfGames ++;
         } else if (humanChoice === 'rock' && computerChoice === 'scissors') {
             console.log(`You win! Rock beats scissors!`);
             humanScore ++;
+            amountOfGames ++;
         } else if (humanChoice === 'rock' && computerChoice === 'rock') {
             console.log(`It's a tie! You both chose rock.`);
+            amountOfGames ++;
         } else if (humanChoice === 'paper' && computerChoice === 'scissors') {
             console.log(`You lose! Scissors beat paper!`);
             computerScore ++;
+            amountOfGames ++;
         } else if (humanChoice === 'paper' && computerChoice === 'rock') {
             console.log(`You won! Paper beats rock!`);
             humanScore ++;
+            amountOfGames ++;
         } else if (humanChoice === 'paper' && computerChoice === 'paper') {
             console.log(`It's a tie! You both chose paper.`);
+            amountOfGames ++;
         } else if (humanChoice === 'scissors' && computerChoice === 'rock') {
             console.log(`You lose! Rock beats scissors!`);
             computerScore ++;
+            amountOfGames ++;
         } else if (humanChoice === 'scissors' && computerChoice === 'paper') {
             console.log(`You won! Scissors beat paper!`);
             humanScore ++;
+            amountOfGames ++;
         } else if (humanChoice === 'scissors' && computerChoice === 'scissors') {
             console.log(`It's a tie! You both chose scissors.`);
+            amountOfGames ++;
         } else {
             console.log(`Invalid choice. Please enter either rock, paper, or scissors.`);
         }
-        console.log(`Human score: ${humanScore}, computer score: ${computerScore}.`);
+        console.log(`Games played: ${amountOfGames}. Human score: ${humanScore}, computer score: ${computerScore}.`);
     }
-    playRound();
-    playRound();
-    playRound();
-    playRound();
-    playRound();
+    do {
+        playRound();
+    } while (amountOfGames < 10); // this keeps the amount of games to 10.
+
+    if (amountOfGames === 10) { // Letting know who won after 10 games.
+        if (humanScore > computerScore) {
+            console.log('Congratz – you are the overall winner!');
+        } else if (humanScore < computerScore) {
+            console.log(`You lost to the cpu. Better luck next time.`)
+        } else {
+            console.log(`It's a tie, better luck next time.`)
+        }
+    }
 }
 
 playGame();
