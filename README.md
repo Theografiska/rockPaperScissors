@@ -1,6 +1,8 @@
 # Rock Paper Scissors Game
 This project is a simple Rock, Paper, Scissors game implemented in JavaScript. The game is played against the computer, with scores tracked over 10 rounds to determine the overall winner.
 
+Live version: https://theografiska.github.io/rockPaperScissors/. 
+
 ---
 
 ## How It Works
