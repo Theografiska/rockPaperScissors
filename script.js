@@ -27,7 +27,8 @@ let humanChoice = "";
 
 // Accessing all buttons at once:
 
-const buttons = document.querySelectorAll("button");
+const buttonSection = document.querySelector("#button-section");
+const buttons = document.querySelectorAll(".game-button");
 
 // adding event listeners to each button:
 
@@ -38,7 +39,7 @@ buttons.forEach((button) => {
     });
 })
 
-// results div: 
+// Section for displaying results: 
 
 const resultsDiv = document.querySelector("#results-div");
 const para = document.createElement("p");
@@ -49,75 +50,79 @@ const overallScore = document.createElement("p");
 overallScore.textContent = "";
 resultsDiv.appendChild(overallScore);
 
+// initializing the score outside of functions
+
+let computerScore = 0;
+let humanScore = 0;
+
+// announcing the score and winner
+
+const getScore = () => {
+    if (computerScore < 5 && humanScore < 5) {
+        overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
+    } else {
+        buttonSection.style.display = "none"; // removing the buttons
+        if (computerScore > 4) {
+            overallScore.textContent = `Game over, you lost. Total score: you ${humanScore}, computer ${computerScore}.`
+        } else if (humanScore > 4) {
+            overallScore.textContent = `Well done, you won overall. Total score: you ${humanScore}, computer ${computerScore}.`
+        }
+        // adding a reset button when game finishes:
+        const resetButton = document.createElement("button");
+        resetButton.textContent = "Reset the game";
+        resultsDiv.appendChild(resetButton);
+        resetButton.addEventListener("click", () => {
+            resetButton.style.display = "none"; // removing the reset button after click
+            buttonSection.style.display = "block"; // returning the game-buttons
+            para.textContent = "";
+            overallScore.textContent = "";
+            computerScore = 0;
+            humanScore = 0;
+        })
+    }
+}
+
 const playRound = () => {
     let computerChoice = getComputerChoice();
     humanChoice = humanChoice.toLowerCase();
-    let computerScore = 0;
-    let humanScore = 0;
-    let amountOfGames = 0;
-    
     if(humanChoice === 'rock' && computerChoice === 'paper') {
-            para.textContent = `You chose rock, computer chose paper. You lose – paper beats rock!`;
-            computerScore ++;
-            amountOfGames ++;
-            overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
+                para.textContent = `You lose! You chose rock, computer chose paper.`;
+                computerScore ++;
+                getScore();
     } else if (humanChoice === 'rock' && computerChoice === 'scissors') {
-            para.textContent = `You chose rock, computer chose scissors. You win – rock beats scissors!`;
-            humanScore ++;
-            amountOfGames ++;
-            overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
+                para.textContent = `You win! You chose rock, computer chose scissors.`;
+                humanScore ++;
+                getScore();
     } else if (humanChoice === 'rock' && computerChoice === 'rock') {
-            para.textContent = `You both chose rock – it's a tie!`;
-            amountOfGames ++;
-            overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
+                para.textContent = `It's a tie! You both chose rock.`;
+                getScore();
     } else if (humanChoice === 'paper' && computerChoice === 'scissors') {
-            para.textContent = `You lose! Scissors beat paper!`;
-            computerScore ++;
-            amountOfGames ++;
-            overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
+                para.textContent = `You lose! You chose paper, computer chose scissors.`;
+                computerScore ++;
+                getScore();
     } else if (humanChoice === 'paper' && computerChoice === 'rock') {
-            para.textContent = `You won! Paper beats rock!`;
-            humanScore ++;
-            amountOfGames ++;
-            overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
+                para.textContent = `You win! You chose paper, computer chose rock.`;
+                humanScore ++;
+                getScore();
     } else if (humanChoice === 'paper' && computerChoice === 'paper') {
-            para.textContent = `It's a tie! You both chose paper.`;
-            amountOfGames ++;
-            overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
+                para.textContent = `It's a tie! You both chose paper.`;
+                getScore();
     } else if (humanChoice === 'scissors' && computerChoice === 'rock') {
-            para.textContent = `You lose! Rock beats scissors!`;
-            computerScore ++;
-            amountOfGames ++;
-            overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
+                para.textContent = `You lose! You chose scissors, computer chose rock!`;
+                computerScore ++;
+                getScore();
     } else if (humanChoice === 'scissors' && computerChoice === 'paper') {
-            para.textContent = `You won! Scissors beat paper!`;
-            humanScore ++;
-            amountOfGames ++;
-            overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
+                para.textContent = `You win! You chose scissors, computer chose paper.`;
+                humanScore ++;
+                getScore();
     } else if (humanChoice === 'scissors' && computerChoice === 'scissors') {
-            para.textContent = `It's a tie! You both chose scissors.`;
-            amountOfGames ++;
-            overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
+                para.textContent = `It's a tie! You both chose scissors.`;
+                getScore();
     } else {
-            para.textContent = `Invalid choice. Please enter either rock, paper, or scissors.`;
-            overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
-    }
-}
-/*
-    do {
-        playRound();
-    } while (amountOfGames < 10); // this keeps the amount of games to 10.
-
-    if (amountOfGames === 10) { // Letting know who won after 10 games.
-        if (humanScore > computerScore) {
-            alert('Congratz – you are the overall winner! Games played: ${amountOfGames}. Human score: ${humanScore}, computer score: ${computerScore}.');
-        } else if (humanScore < computerScore) {
-            alert(`You lost to the cpu. Better luck next time. Games played: ${amountOfGames}. Human score: ${humanScore}, computer score: ${computerScore}.`)
-        } else {
-            alert(`It's a tie, better luck next time. Games played: ${amountOfGames}. Human score: ${humanScore}, computer score: ${computerScore}.`)
+                para.textContent = `Invalid choice. Please enter either rock, paper, or scissors.`;
+                getScore();
         }
-    }
+}
 
-    console.log(`Games played: ${amountOfGames}. Human score: ${humanScore}, computer score: ${computerScore}.`);
+// adding a reset button
 
-*/
