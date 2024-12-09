@@ -1,4 +1,3 @@
-
 // getting computer's choice
 
 const getComputerChoice = () => {
@@ -18,76 +17,93 @@ const getComputerChoice = () => {
     return choice;
 }
 
-// getting the human's choice
+// accessing buttons through the DOM:
 
-const getHumanChoice = () => {
-    let choice = prompt("Rock, paper, or scissors?", "Enter your choice!");
-    return choice;
-}
+const rock = document.querySelector("#rock-button");
+const paper = document.querySelector("#paper-button");
+const scissors = document.querySelector("#scissors-button");
 
-// storing the human's choice in a variable
+let humanChoice = "";
 
-// console.log(`The human chose ${humanChoice}.`); // testing
+// Accessing all buttons at once:
 
-// storing the computer's choice in a variable
+const buttons = document.querySelectorAll("button");
 
-// console.log(`The computer chose ${computerChoice}.`); // testing
+// adding event listeners to each button:
 
-// keeping score through variables
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        humanChoice = button.id; // getting the human's choice
+        playRound();
+    });
+})
 
+// results div: 
 
+const resultsDiv = document.querySelector("#results-div");
+const para = document.createElement("p");
+para.textContent = "";
+resultsDiv.appendChild(para);
 
-// logic to play a single round
+const overallScore = document.createElement("p");
+overallScore.textContent = "";
+resultsDiv.appendChild(overallScore);
 
-const playGame = () => {
-    let humanScore = 0;
+const playRound = () => {
+    let computerChoice = getComputerChoice();
+    humanChoice = humanChoice.toLowerCase();
     let computerScore = 0;
+    let humanScore = 0;
     let amountOfGames = 0;
-
-    const playRound = () => {
-        let humanChoice = getHumanChoice();
-        let computerChoice = getComputerChoice();
-
-        humanChoice = humanChoice.toLowerCase();
     
-        if(humanChoice === 'rock' && computerChoice === 'paper') {
-            console.log(`You lose! Paper beats rock!`);
+    if(humanChoice === 'rock' && computerChoice === 'paper') {
+            para.textContent = `You chose rock, computer chose paper. You lose – paper beats rock!`;
             computerScore ++;
             amountOfGames ++;
-        } else if (humanChoice === 'rock' && computerChoice === 'scissors') {
-            console.log(`You win! Rock beats scissors!`);
+            overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
+    } else if (humanChoice === 'rock' && computerChoice === 'scissors') {
+            para.textContent = `You chose rock, computer chose scissors. You win – rock beats scissors!`;
             humanScore ++;
             amountOfGames ++;
-        } else if (humanChoice === 'rock' && computerChoice === 'rock') {
-            console.log(`It's a tie! You both chose rock.`);
+            overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
+    } else if (humanChoice === 'rock' && computerChoice === 'rock') {
+            para.textContent = `You both chose rock – it's a tie!`;
             amountOfGames ++;
-        } else if (humanChoice === 'paper' && computerChoice === 'scissors') {
-            console.log(`You lose! Scissors beat paper!`);
+            overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
+    } else if (humanChoice === 'paper' && computerChoice === 'scissors') {
+            para.textContent = `You lose! Scissors beat paper!`;
             computerScore ++;
             amountOfGames ++;
-        } else if (humanChoice === 'paper' && computerChoice === 'rock') {
-            console.log(`You won! Paper beats rock!`);
+            overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
+    } else if (humanChoice === 'paper' && computerChoice === 'rock') {
+            para.textContent = `You won! Paper beats rock!`;
             humanScore ++;
             amountOfGames ++;
-        } else if (humanChoice === 'paper' && computerChoice === 'paper') {
-            console.log(`It's a tie! You both chose paper.`);
+            overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
+    } else if (humanChoice === 'paper' && computerChoice === 'paper') {
+            para.textContent = `It's a tie! You both chose paper.`;
             amountOfGames ++;
-        } else if (humanChoice === 'scissors' && computerChoice === 'rock') {
-            console.log(`You lose! Rock beats scissors!`);
+            overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
+    } else if (humanChoice === 'scissors' && computerChoice === 'rock') {
+            para.textContent = `You lose! Rock beats scissors!`;
             computerScore ++;
             amountOfGames ++;
-        } else if (humanChoice === 'scissors' && computerChoice === 'paper') {
-            console.log(`You won! Scissors beat paper!`);
+            overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
+    } else if (humanChoice === 'scissors' && computerChoice === 'paper') {
+            para.textContent = `You won! Scissors beat paper!`;
             humanScore ++;
             amountOfGames ++;
-        } else if (humanChoice === 'scissors' && computerChoice === 'scissors') {
-            console.log(`It's a tie! You both chose scissors.`);
+            overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
+    } else if (humanChoice === 'scissors' && computerChoice === 'scissors') {
+            para.textContent = `It's a tie! You both chose scissors.`;
             amountOfGames ++;
-        } else {
-            console.log(`Invalid choice. Please enter either rock, paper, or scissors.`);
-        }
-        console.log(`Games played: ${amountOfGames}. Human score: ${humanScore}, computer score: ${computerScore}.`);
+            overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
+    } else {
+            para.textContent = `Invalid choice. Please enter either rock, paper, or scissors.`;
+            overallScore.textContent = `Total score: you ${humanScore}, computer ${computerScore}.`
     }
+}
+/*
     do {
         playRound();
     } while (amountOfGames < 10); // this keeps the amount of games to 10.
@@ -101,6 +117,7 @@ const playGame = () => {
             alert(`It's a tie, better luck next time. Games played: ${amountOfGames}. Human score: ${humanScore}, computer score: ${computerScore}.`)
         }
     }
-}
 
-playGame();
+    console.log(`Games played: ${amountOfGames}. Human score: ${humanScore}, computer score: ${computerScore}.`);
+
+*/
