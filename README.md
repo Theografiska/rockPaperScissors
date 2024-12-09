@@ -41,7 +41,8 @@ This project is a simple Rock, Paper, Scissors game implemented in JavaScript. T
 2. Run the script.
 3. Enter your choice (rock, paper, or scissors) when prompted.
 4. Check the console for results and score updates after each round.
-5. Play until the game declares a winner after 10 rounds.
+5. Play until the game declares a winner after the first player reaches 5 wins.
+6. There's an option to reset the play after that. 
 
 ---
 
